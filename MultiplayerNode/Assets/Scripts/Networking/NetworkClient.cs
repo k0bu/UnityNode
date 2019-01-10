@@ -10,8 +10,15 @@ namespace Project.Networking {
     //and modify some properties
     public class NetworkClient : SocketIOComponent {
 
+        [Header("Network Client")]
+        [SerializeField]
+        private Transform networkContainer;
+
+        private Dictionary<string, GameObject> serverObjects;
+
         public override void Start() {
             base.Start();
+            Initialize();
             SetUpEvents();
         }
 
@@ -19,6 +26,9 @@ namespace Project.Networking {
             base.Update();
         }
 
+        private void Initialize() {
+            serverObjects = new Dictionary<string, GameObject>();
+        }
 
         private void SetUpEvents() {
             //open prints two times, but this is bug with the socket.io asset
@@ -26,6 +36,29 @@ namespace Project.Networking {
             On("open", (e) => {
                 Debug.Log("Connection Made with Server");
             });
+
+            On("register", (e) => {
+                string id = e.data["id"].ToString();//.RemoveQuotes();
+
+                Debug.LogFormat("Our Client's ID is ({0})", id);
+            });
+
+            On("spawn", (e) => {
+                string id = e.data["id"].ToString();
+
+                GameObject go = new GameObject("Server ID: " + id);
+                go.transform.SetParent(networkContainer);
+                serverObjects.Add(id, go);
+            });
+
+            On("disconnected", (e) => {
+                string id = e.data["id"].ToString();
+
+                GameObject go = serverObjects[id];
+                Destroy(go);
+                serverObjects.Remove(id);
+            });
+
         }
 
     }
