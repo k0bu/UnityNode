@@ -32,6 +32,14 @@ io.on('connection', function(socket){
         }
     }
 
+    //Positional data from client
+    socket.on('updatePosition', function(){
+        player.position.x = data.position.x;
+        player.position.y = data.position.y;
+
+        socket.broadcast.emit('updatePosition', player);
+    });
+
     socket.on('disconnect', function(){
         console.log('A player has disconnected');
 

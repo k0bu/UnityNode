@@ -146,7 +146,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.3823425, g: 0.41053757, b: 0.4528302, a: 0}
+  m_BackGroundColor: {r: 0.23362409, g: 0.35149652, b: 0.6603774, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -265,3 +265,64 @@ MonoBehaviour:
   pingInterval: 25
   pingTimeout: 60
   networkContainer: {fileID: 691531927}
+  playerPrefab: {fileID: 0}
+--- !u!1001 &892030226
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4591653502265616, guid: 88ed84bb4a80e9e44a968a71725d14e0, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591653502265616, guid: 88ed84bb4a80e9e44a968a71725d14e0, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591653502265616, guid: 88ed84bb4a80e9e44a968a71725d14e0, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591653502265616, guid: 88ed84bb4a80e9e44a968a71725d14e0, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591653502265616, guid: 88ed84bb4a80e9e44a968a71725d14e0, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591653502265616, guid: 88ed84bb4a80e9e44a968a71725d14e0, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591653502265616, guid: 88ed84bb4a80e9e44a968a71725d14e0, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591653502265616, guid: 88ed84bb4a80e9e44a968a71725d14e0, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 88ed84bb4a80e9e44a968a71725d14e0, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!1 &904912498 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1635774802974924, guid: 88ed84bb4a80e9e44a968a71725d14e0,
+    type: 2}
+  m_PrefabInternal: {fileID: 892030226}
+--- !u!114 &904912499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 904912498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beeb758b7690a724193ba4c447e7e098, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  isControlling: 0

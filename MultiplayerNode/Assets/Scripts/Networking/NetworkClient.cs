@@ -13,6 +13,10 @@ namespace Project.Networking {
         [Header("Network Client")]
         [SerializeField]
         private Transform networkContainer;
+        [SerializeField]
+        private GameObject playerPrefab;
+
+        public static string ClientID { get; private set; }
 
         private Dictionary<string, GameObject> serverObjects;
 
@@ -38,9 +42,9 @@ namespace Project.Networking {
             });
 
             On("register", (e) => {
-                string id = e.data["id"].ToString();//.RemoveQuotes();
+                ClientID = e.data["id"].ToString();//.RemoveQuotes();
 
-                Debug.LogFormat("Our Client's ID is ({0})", id);
+                Debug.LogFormat("Our Client's ID is ({0})", ClientID);
             });
 
             On("spawn", (e) => {
