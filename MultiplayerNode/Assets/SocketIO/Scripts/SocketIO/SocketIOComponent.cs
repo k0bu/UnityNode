@@ -40,9 +40,13 @@ namespace SocketIO
 {
 	public class SocketIOComponent : MonoBehaviour
 	{
-		#region Public Properties
+        #region Public Properties
 
-		public string url = "ws://127.0.0.1:4567/socket.io/?EIO=4&transport=websocket";
+
+        //Header is Attribution for modifying the view of Inspector, 
+        //and making the structure look better. 
+        [Header("Socket IO Component")]
+        public string url = "ws://127.0.0.1:4567/socket.io/?EIO=4&transport=websocket";
 		public bool autoConnect = true;
 		public int reconnectDelay = 5;
 		public float ackExpirationTime = 1800f;
@@ -119,12 +123,14 @@ namespace SocketIO
 			#endif
 		}
 
-		public void Start()
+        //We want to be able to overide in the same time, and consume the code below.
+        //That is the reason why Start and Update is modified to virtual method.
+		public virtual void Start()
 		{
 			if (autoConnect) { Connect(); }
 		}
 
-		public void Update()
+		public virtual void Update()
 		{
 			lock(eventQueueLock){ 
 				while(eventQueue.Count > 0){
