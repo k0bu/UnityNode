@@ -33,7 +33,7 @@ io.on('connection', function(socket){
     }
 
     //Positional data from client
-    socket.on('updatePosition', function(){
+    socket.on('updatePosition', function(data){
         player.position.x = data.position.x;
         player.position.y = data.position.y;
 

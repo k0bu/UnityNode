@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SocketIO;
 
 using Project.Utility.Attributes;
 
@@ -15,15 +16,37 @@ namespace Project.Networking {
         [GreyOut]
         private bool isControlling;
 
-        // Use this for initialization
-        void Start () {
-		
-	    }
-	
-	    // Update is called once per frame
-	    void Update () {
-		
-	    }
+        private SocketIOComponent socket;
+
+        public void Awake() {
+            isControlling = false;
+
+        }
+
+        public void SetControllerID (string ID) {
+            id = ID;
+            isControlling = (NetworkClient.ClientID == ID);// ? true : false;
+        }
+
+        public void SetSocketReference(SocketIOComponent Socket) {
+            socket = Socket;
+        }
+
+        public string GetID() {
+            return id;
+
+        }
+
+        public bool IsControlling() {
+            return isControlling;
+
+        }
+
+        public SocketIOComponent GetSocket() {
+            return socket;
+        }
+
+
     }
 }
 
