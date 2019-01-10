@@ -21,6 +21,8 @@ namespace Project.Networking {
 
 
         private void SetUpEvents() {
+            //open prints two times, but this is bug with the socket.io asset
+            //the connection does not get duplicated so it does not matter much.
             On("open", (e) => {
                 Debug.Log("Connection Made with Server");
             });
