@@ -4,6 +4,7 @@ using UnityEngine;
 using SocketIO;
 using System;
 using Project.Utility;
+using Project.Player;
 
 //Shortcut command C-k,C-d
 
@@ -76,6 +77,17 @@ namespace Project.Networking {
 
                 NetworkIdentity ni = serverObjects[id];
                 ni.transform.position = new Vector3(x, y, 0);
+            });
+
+            On("updateRotation", (e) => {
+                string id = e.data["id"].ToString().RemoveQuotes();
+
+                float tankRotation = e.data["tankRotation"].f;
+                float barrelRotation = e.data["barrelRotation"].f;
+
+                NetworkIdentity ni = serverObjects[id];
+                ni.transform.localEulerAngles = new Vector3(0, 0, tankRotation);
+                ni.GetComponent<PlayerManager>().SetRotation(barrelRotation);
             });
 
         }

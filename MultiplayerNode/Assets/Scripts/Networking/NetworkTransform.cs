@@ -1,4 +1,5 @@
-﻿using Project.Utility.Attributes;
+﻿using Project.Utility;
+using Project.Utility.Attributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,8 +52,8 @@ namespace Project.Networking {
 
         private void SendData() {
             //Update Player Information
-            player.position.x = Mathf.Round(transform.position.x * 1000.0f) / 1000.0f;
-            player.position.y = Mathf.Round(transform.position.y * 1000.0f) / 1000.0f;
+            player.position.x = transform.position.x.TwoDecimals();
+            player.position.y = transform.position.y.TwoDecimals();
 
             networkIdentity.GetSocket().Emit("updatePosition", new JSONObject(JsonUtility.ToJson(player)));
 

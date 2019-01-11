@@ -36,8 +36,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4591653502265616}
   - component: {fileID: 114246541161194198}
-  - component: {fileID: 114856619628197368}
   - component: {fileID: 114029923091867878}
+  - component: {fileID: 114856619628197368}
+  - component: {fileID: 114725614510756542}
   m_Layer: 0
   m_Name: Player - Prefab
   m_TagString: Untagged
@@ -281,6 +282,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 
   isControlling: 0
+--- !u!114 &114725614510756542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1635774802974924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5abfb404e673aff41b005ea5d4ddc16b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oldTankRotation: 0
+  oldBarrelRotation: 0
+  playerManager: {fileID: 114029923091867878}
 --- !u!114 &114856619628197368
 MonoBehaviour:
   m_ObjectHideFlags: 1
