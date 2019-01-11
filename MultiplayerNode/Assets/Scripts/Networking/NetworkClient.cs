@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SocketIO;
 using System;
+using Project.Utility;
 
 //Shortcut command C-k,C-d
 
@@ -43,13 +44,13 @@ namespace Project.Networking {
             });
 
             On("register", (e) => {
-                ClientID = e.data["id"].ToString();//.RemoveQuotes();
+                ClientID = e.data["id"].ToString().RemoveQuotes();//.RemoveQuotes();
 
                 Debug.LogFormat("Our Client's ID is ({0})", ClientID);
             });
 
             On("spawn", (e) => {
-                string id = e.data["id"].ToString();
+                string id = e.data["id"].ToString().RemoveQuotes();
 
                 GameObject go = Instantiate(playerPrefab, networkContainer);
                 go.name = string.Format("Player ({0})", id);
@@ -61,7 +62,7 @@ namespace Project.Networking {
             });
 
             On("disconnected", (e) => {
-                string id = e.data["id"].ToString();
+                string id = e.data["id"].ToString().RemoveQuotes();
 
                 GameObject go = serverObjects[id].gameObject;
                 Destroy(go);
@@ -69,7 +70,7 @@ namespace Project.Networking {
             });
 
             On("updatePosition", (e) => {
-                string id = e.data["id"].ToString();
+                string id = e.data["id"].ToString().RemoveQuotes();
                 float x = e.data["position"]["x"].f;
                 float y = e.data["position"]["y"].f;
 
@@ -91,6 +92,12 @@ namespace Project.Networking {
     public class Position {
         public float x;
         public float y;
+    }
+    
+    [Serializable]
+    public class PlayerRotation {
+        public float tankRotation;
+        public float barrelRotation;
     }
 }
 
