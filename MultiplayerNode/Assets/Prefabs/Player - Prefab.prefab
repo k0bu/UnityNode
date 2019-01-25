@@ -146,6 +146,7 @@ MonoBehaviour:
   speed: 2
   rotation: 60
   barrelPivot: {fileID: 4777956370007082}
+  bulletSpawnPoint: {fileID: 9175314766690888749}
   networkIdentity: {fileID: 114246541161194198}
 --- !u!114 &114856619628197368
 MonoBehaviour:
