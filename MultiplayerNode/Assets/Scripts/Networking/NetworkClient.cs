@@ -5,6 +5,7 @@ using SocketIO;
 using System;
 using Project.Utility;
 using Project.Player;
+using Project.Scriptable;
 
 //Shortcut command C-k,C-d
 
@@ -20,6 +21,9 @@ namespace Project.Networking
         private Transform networkContainer;
         [SerializeField]
         private GameObject playerPrefab;
+        [SerializeField]
+        private ServerObjects serverSpawnables;
+
 
         public static string ClientID { get; private set; }
 
@@ -102,7 +106,45 @@ namespace Project.Networking
                 ni.GetComponent<PlayerManager>().SetRotation(barrelRotation);
             });
 
+            On("serverSpawn", (e) =>
+            {
+                string name = e.data["name"].str;
+                string id = e.data["id"].ToString().RemoveQuotes();
+                float x = e.data["position"]["x"].f;
+                float y = e.data["position"]["y"].f;
+                Debug.LogFormat("Server wants us to spawn a '{0}'", name);
 
+                if (!serverObjects.ContainsKey(id))
+                {
+                    ServerObjectData sod = serverSpawnables.GetObjectByName(name);
+                    var spawnedObject = Instantiate(sod.Prefab, networkContainer);
+                    spawnedObject.transform.position = new Vector3(x, y, 0);
+                    var ni = spawnedObject.GetComponent<NetworkIdentity>();
+                    ni.SetControllerID(id);
+                    ni.SetSocketReference(this);
+
+                    //If bullet, apply direction as well
+                    if(name == "Bullet")
+                    {
+                        float directionX = e.data["direction"]["x"].f;
+                        float directionY = e.data["direction"]["y"].f;
+
+                        float rot = Mathf.Atan2(directionY, directionX) * Mathf.Rad2Deg;
+                        Vector3 currentRotation = new Vector3(0, 0, rot - 90);
+                        spawnedObject.transform.rotation = Quaternion.Euler(currentRotation);
+                    }
+
+                    serverObjects.Add(id, ni);
+                }
+            });
+
+            On("serverUnspawn", (e) =>
+            {
+                string id = e.data["id"].ToString().RemoveQuotes();
+                NetworkIdentity ni = serverObjects[id];
+                serverObjects.Remove(id);
+                DestroyImmediate(ni.gameObject);
+            });
 
         }
 
