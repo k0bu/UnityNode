@@ -8,10 +8,12 @@ using Project.Player;
 
 //Shortcut command C-k,C-d
 
-namespace Project.Networking {
+namespace Project.Networking
+{
     //Mark the namespace "SocketIOComponent" and press F12 to jump to the definition
     //and modify some properties
-    public class NetworkClient : SocketIOComponent {
+    public class NetworkClient : SocketIOComponent
+    {
 
         [Header("Network Client")]
         [SerializeField]
@@ -23,34 +25,41 @@ namespace Project.Networking {
 
         private Dictionary<string, NetworkIdentity> serverObjects;
 
-        public override void Start() {
+        public override void Start()
+        {
             base.Start();
             Initialize();
             SetUpEvents();
         }
 
-        public override void Update() {
+        public override void Update()
+        {
             base.Update();
         }
 
-        private void Initialize() {
+        private void Initialize()
+        {
             serverObjects = new Dictionary<string, NetworkIdentity>();
         }
 
-        private void SetUpEvents() {
+        private void SetUpEvents()
+        {
             //open prints two times, but this is bug with the socket.io asset
             //the connection does not get duplicated so it does not matter much.
-            On("open", (e) => {
+            On("open", (e) =>
+            {
                 Debug.Log("Connection Made with Server");
             });
 
-            On("register", (e) => {
+            On("register", (e) =>
+            {
                 ClientID = e.data["id"].ToString().RemoveQuotes();//.RemoveQuotes();
 
                 Debug.LogFormat("Our Client's ID is ({0})", ClientID);
             });
 
-            On("spawn", (e) => {
+            On("spawn", (e) =>
+            {
                 string id = e.data["id"].ToString().RemoveQuotes();
 
                 GameObject go = Instantiate(playerPrefab, networkContainer);
@@ -62,7 +71,8 @@ namespace Project.Networking {
                 serverObjects.Add(id, ni);
             });
 
-            On("disconnected", (e) => {
+            On("disconnected", (e) =>
+            {
                 string id = e.data["id"].ToString().RemoveQuotes();
 
                 GameObject go = serverObjects[id].gameObject;
@@ -70,7 +80,8 @@ namespace Project.Networking {
                 serverObjects.Remove(id);
             });
 
-            On("updatePosition", (e) => {
+            On("updatePosition", (e) =>
+            {
                 string id = e.data["id"].ToString().RemoveQuotes();
                 float x = e.data["position"]["x"].f;
                 float y = e.data["position"]["y"].f;
@@ -79,7 +90,8 @@ namespace Project.Networking {
                 ni.transform.position = new Vector3(x, y, 0);
             });
 
-            On("updateRotation", (e) => {
+            On("updateRotation", (e) =>
+            {
                 string id = e.data["id"].ToString().RemoveQuotes();
 
                 float tankRotation = e.data["tankRotation"].f;
@@ -90,26 +102,39 @@ namespace Project.Networking {
                 ni.GetComponent<PlayerManager>().SetRotation(barrelRotation);
             });
 
+
+
         }
 
     }
 
     [Serializable]
-    public class Player {
+    public class Player
+    {
         public string id;
         public Position position;
     }
 
     [Serializable]
-    public class Position {
+    public class Position
+    {
         public float x;
         public float y;
     }
-    
+
     [Serializable]
-    public class PlayerRotation {
+    public class PlayerRotation
+    {
         public float tankRotation;
         public float barrelRotation;
+    }
+
+    [Serializable]
+    public class BulletData
+    {
+        public string id;
+        public Position position;
+        public Position direction;
     }
 }
 
