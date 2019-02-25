@@ -5,7 +5,7 @@ module.exports = {
     node: true
   },
   parserOptions: {
-    parser: 'babel-eslint',
+    "extends": "eslint:recommended",//parser: 'babel-eslint',
     ecmaVersion: 6
   },
   extends: [
